@@ -31,6 +31,9 @@ function lanzarDadosJugador1() {
   let dado2 = Math.floor(Math.random() * 6) + 1; //el .floor redondea el resultado (pag 159)
   lanzamientoJugador1.push([dado1, dado2]);
 
+  //deshabilitar el botón del jugador 1 para que solo pueda jugar el jugador 2
+  document.querySelector("#lanzar_j1").disabled = true;
+  document.querySelector("#lanzar_j2").disabled = false;
   actualizarRondaHTML(rondaActual, dado1, dado2, "jugador1"); //es una cadena
 }
 
@@ -41,6 +44,9 @@ function lanzarDadosJugador2() {
   let dado2 = Math.floor(Math.random() * 6) + 1; //el .floor redondea el resultado (pag 159)
   lanzamientoJugador2.push([dado1, dado2]);
 
+ //deshabilitar el botón del jugador 2 para que solo pueda jugar el jugador 1
+  document.querySelector("#lanzar_j1").disabled = false;
+  document.querySelector("#lanzar_j2").disabled = true;
   actualizarRondaHTML(rondaActual, dado1, dado2, "jugador2"); //es una cadena
   rondaActual++; //se incrementa la ronda
 }
@@ -93,22 +99,21 @@ document.querySelector("#terminar").addEventListener("click", () => {
   }
   // determinar el ganador
   let ganador = determinarGanador();
-  let puntuacionesHTML= `
+  let puntuacionesHTML = `
   <h3>Puntuaciones acumuladas </h3>
   <p>Jugador 1 - ${puntuaciones[0]}</p>
   <p>Jugador 2 - ${puntuaciones[1]}</p>
   <h3>Ganador: ${ganador}</h3>
-  `
+  `;
 
-//le damos salida en el html
-  document.querySelector("#puntuaciones").innerHTML=puntuacionesHTML;
+  //le damos salida en el html
+  document.querySelector("#puntuaciones").innerHTML = puntuacionesHTML;
 
-    //deshabilitar los botones para que no se sigan utilizando
-    document.querySelector("#lanzar_j1").disabled=true;
-    document.querySelector("#lanzar_j2").disabled=true;
-    document.querySelector("#terminar").disabled=true;
-
-})
+  //deshabilitar los botones para que no se sigan utilizando
+  document.querySelector("#lanzar_j1").disabled = true;
+  document.querySelector("#lanzar_j2").disabled = true;
+  document.querySelector("#terminar").disabled = true;
+});
 
 function determinarGanador() {
   if (puntuaciones[0] > puntuaciones[1]) {
